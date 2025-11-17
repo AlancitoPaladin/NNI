@@ -3,3 +3,6 @@ dataset/
 dataset2/
 dataset3/
 models/
+features/features.npz/
+features/features4.npz/
+features/hog_features.npz/
