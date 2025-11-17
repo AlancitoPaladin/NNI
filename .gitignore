@@ -1,0 +1,5 @@
+# Ignorar carpetas de Datasets
+dataset/
+dataset2/
+dataset3/
+models/
