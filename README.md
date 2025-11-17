@@ -6,7 +6,7 @@ Este proyecto implementa un sistema de clasificación de letras (A-Z) utilizando
 Oriented Gradients) y un Perceptrón Multicapa (MLP) entrenado desde cero. El objetivo es reconocer letras en imágenes,
 útil para aplicaciones como OCR básico o reconocimiento de caracteres.
 
-Características
+Características.
 
 Extracción de características: Usa HOG con parámetros configurables (pixels_per_cell=(8,8), cells_per_block=(2,2)) para
 imágenes de 64x64 píxeles.
