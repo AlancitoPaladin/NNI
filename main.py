@@ -245,7 +245,6 @@ if __name__ == "__main__":
 
     generar_reporte_clasificacion(perceptron, X_test, y_test, int_to_label)
 
-    # ✅ GUARDAR MODELO
     print("\n" + "=" * 80)
     print("Guardando modelo entrenado...")
 
@@ -261,9 +260,8 @@ if __name__ == "__main__":
     with open('models/trained_model.pkl', 'wb') as f:
         pickle.dump(modelo_data, f)
 
-    print("✅ Modelo guardado en './models/trained_model.pkl'")
+    print("Modelo guardado en './models/trained_model.pkl'")
 
-    # ✅ EJEMPLO DE USO PARA PREDICCIÓN
     # Supón que tienes un vector HOG de una imagen (extraído previamente)
     # ejemplo_vector = np.random.rand(1764)  # Reemplaza con tu vector real
     # resultado = cargar_y_predecir(ejemplo_vector)
