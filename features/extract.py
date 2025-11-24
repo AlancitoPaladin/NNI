@@ -19,7 +19,6 @@ for letter in string.ascii_uppercase:
     if os.path.exists(letter_dir):
         # Iterar sobre los archivos en la carpeta
         for filename in os.listdir(letter_dir):
-            # Verificar si es un archivo de imagen (extensiones comunes)
             if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tiff')):
                 img_path = os.path.join(letter_dir, filename)
 

@@ -3,8 +3,9 @@ Perceptrón Multicapa para predicción basado en características HOG.
 Versión optimizada con mini-batches, regularización L2.
 """
 
-import numpy as np
 import pickle
+
+import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
@@ -59,13 +60,16 @@ class PerceptronMulticapa:
         self.W2 = np.random.randn(nodos_ocu, nodos_sal) * np.sqrt(2.0 / nodos_ocu)
         self.b2 = np.zeros((1, nodos_sal))
 
-    def relu(self, x):
+    @staticmethod
+    def relu(x):
         return np.maximum(0, np.clip(x, -500, 500))
 
-    def drelu(self, x):
+    @staticmethod
+    def drelu(x):
         return (x > 0).astype(float)
 
-    def softmax(self, x):
+    @staticmethod
+    def softmax(x):
         e_x = np.exp(x - np.max(x, axis=1, keepdims=True))
         return e_x / e_x.sum(axis=1, keepdims=True)
 
@@ -121,7 +125,6 @@ class PerceptronMulticapa:
             if verbose and (epoch + 1) % 10 == 0:
                 print(f"Época {epoch + 1}/{epochs}, Error: {error_promedio:.10f}")
 
-
             if error_promedio < 0.0000001:
                 print(f"Convergencia en época {epoch + 1}")
                 break
@@ -148,12 +151,12 @@ def generar_reporte_clasificacion(perceptron, X_test, y_test, int_to_label):
     accuracy = accuracy_score(y_true, y_pred)
 
     print("Reporte de clasificación")
-    print("=" * 80)
+    print("-" * 80)
     print(f"\nPrecisión General: {accuracy:.4f} ({accuracy * 100:.2f}%)\n")
 
     print(classification_report(y_true_labels, y_pred_labels))
 
-    print("\nMatriz de Confusión:")
+    print("\nMatriz de confusión:")
     print("-" * 80)
     cm = confusion_matrix(y_true, y_pred)
     labels = [int_to_label[idx] for idx in range(len(int_to_label))]
@@ -170,38 +173,6 @@ def generar_reporte_clasificacion(perceptron, X_test, y_test, int_to_label):
         print()
 
     return accuracy, cm
-
-
-def cargar_y_predecir(vector_features, modelo_path='./features/modelo_entrenado.pkl'):
-    """
-    Carga el modelo guardado y predice la clase para un vector de características HOG.
-
-    Args:
-    - vector_features: np.array de shape (n_features,) - características de una imagen.
-    - modelo_path: str - ruta al archivo .pkl del modelo.
-
-    Returns:
-    - str: Letra predicha (ej. 'A').
-    """
-    with open(modelo_path, 'rb') as f:
-        modelo_data = pickle.load(f)
-
-    perceptron = modelo_data['perceptron']
-    scaler = modelo_data['scaler']
-    pca = modelo_data['pca']
-    int_to_label = modelo_data['int_to_label']
-
-    # Preprocesar el vector
-    vector_features = scaler.transform(vector_features.reshape(1, -1))
-    if pca is not None:
-        vector_features = pca.transform(vector_features)
-
-    # Predicción
-    output = perceptron.forward(vector_features)
-    clase_predicha_idx = np.argmax(output, axis=1)[0]
-    letra_predicha = int_to_label[clase_predicha_idx]
-
-    return letra_predicha
 
 
 if __name__ == "__main__":
@@ -238,15 +209,12 @@ if __name__ == "__main__":
 
     # Evaluar
     print("Evaluación")
-    print("=" * 80)
+    print("-" * 80)
 
     accuracy_train = perceptron.evaluar(X_train, y_train)
     accuracy_test = perceptron.evaluar(X_test, y_test)
 
     generar_reporte_clasificacion(perceptron, X_test, y_test, int_to_label)
-
-    print("\n" + "=" * 80)
-    print("Guardando modelo entrenado...")
 
     modelo_data = {
         'perceptron': perceptron,
@@ -259,10 +227,3 @@ if __name__ == "__main__":
 
     with open('models/trained_model.pkl', 'wb') as f:
         pickle.dump(modelo_data, f)
-
-    print("Modelo guardado en './models/trained_model.pkl'")
-
-    # Supón que tienes un vector HOG de una imagen (extraído previamente)
-    # ejemplo_vector = np.random.rand(1764)  # Reemplaza con tu vector real
-    # resultado = cargar_y_predecir(ejemplo_vector)
-    # print(f"Letra predicha: {resultado}")

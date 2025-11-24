@@ -1,13 +1,11 @@
 # predict.py
 import os
-import sys
 import pickle
+import sys
+
 import numpy as np
 from PIL import Image
 from skimage.feature import hog
-
-# ✅ IMPORTAR LA CLASE desde main.py
-from main import PerceptronMulticapa
 
 
 def predecir_imagen(ruta_imagen):
@@ -31,7 +29,6 @@ def predecir_imagen(ruta_imagen):
     pca = modelo_data['pca']
     int_to_label = modelo_data['int_to_label']
 
-    # ✅ CARGAR Y PROCESAR IMAGEN
     print(f"Procesando imagen: {ruta_imagen}")
 
     if not os.path.exists(ruta_imagen):
