@@ -231,3 +231,21 @@ if __name__ == "__main__":
         pickle.dump(modelo_data, f)
 
     print("Modelo guardado en './models/modelo_entrenado.pkl'")
+
+
+"""
+(Recall) La sensibilidad y la especificidad son dos valores que nos indican la capacidad de nuestro estimador para discriminar 
+los casos positivos, de los negativos. La sensibilidad se representa como la fracción de verdaderos positivos, mientras 
+que la especificidad, es la fracción de verdaderos negativos.
+
+
+(Especificity) Es la capacidad del estimador para discriminar los casos negativos, de los positivos.
+
+(Precision) Es la capacidad del estimador para distinguir entre los casos positivos y los negativos.
+
+(F1 score) Esta es otra métrica muy empleada porque nos resume la precisión y sensibilidad en una sola métrica. 
+Por ello es de gran utilidad cuando la distribución de las clases es desigual, por ejemplo cuando el número de pacientes 
+con una condición es del 15% y el otro es 85% , lo que en el campo de la salud es bastante común.
+
+
+"""

@@ -1,4 +1,3 @@
-# predict.py
 import os
 import pickle
 import sys
@@ -6,6 +5,8 @@ import sys
 import numpy as np
 from PIL import Image
 from skimage.feature import hog
+
+from main import PerceptronMulticapa
 
 
 def predecir_imagen(ruta_imagen):
@@ -21,7 +22,7 @@ def predecir_imagen(ruta_imagen):
     """
 
     print("Cargando modelo entrenado...")
-    with open('./models/trained_model.pkl', 'rb') as f:
+    with open('./models/modelo_entrenado.pkl', 'rb') as f:
         modelo_data = pickle.load(f)
 
     perceptron = modelo_data['perceptron']
@@ -78,14 +79,14 @@ if __name__ == "__main__":
         ruta = sys.argv[1]
     else:
         # Prueba con una imagen de ejemplo
-        ruta = './dataset/A/img277_1.1_cell.png'
+        ruta = './dataset/H/img277_6.8_tight.png'
 
     letra, confianza = predecir_imagen(ruta)
 
     if letra:
-        print("\n" + "=" * 80)
+        print("\n" + "-" * 80)
         print(f" Predicción: {letra}")
         print(f"   Confianza: {confianza * 100:.2f}%")
-        print("=" * 80)
+        print("-" * 80)
     else:
         print(" No se pudo realizar la predicción")
