@@ -4,20 +4,16 @@ import numpy as np
 from PIL import Image
 from skimage.feature import hog
 
-# Definir las listas para almacenar características y etiquetas
 features_list = []
 labels_list = []
 
-# Directorio base del dataset
 base_dir = '../dataset'
 
 # Iterar sobre las letras A-Z
 for letter in string.ascii_uppercase:
     letter_dir = os.path.join(base_dir, letter)
 
-    # Verificar si la carpeta existe
     if os.path.exists(letter_dir):
-        # Iterar sobre los archivos en la carpeta
         for filename in os.listdir(letter_dir):
             if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tiff')):
                 img_path = os.path.join(letter_dir, filename)
@@ -47,7 +43,7 @@ for letter in string.ascii_uppercase:
 X = np.array(features_list)
 y = np.array(labels_list)
 
-# Guardar en un archivo .npz con las claves que espera tu función de carga
+# Guardar en un archivo .npz
 np.savez('proof.npz', X=X, y=y)
 
 print("Procesamiento completado. Archivo 'caracteristicas_letras.npz' guardado.")

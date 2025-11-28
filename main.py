@@ -1,14 +1,13 @@
 """
 Perceptrón Multicapa para predicción basado en características HOG.
-Versión optimizada con mini-batches, regularización L2.
 """
 
-import pickle
-
 import numpy as np
+import pickle
 from sklearn.decomposition import PCA
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
 
 
 def cargar_datos_hog(file_path, reduce_dim=True, n_components=200):
@@ -184,8 +183,6 @@ if __name__ == "__main__":
         n_components=150
     )
 
-    from sklearn.model_selection import train_test_split
-
     X_train, X_test, y_train, y_test = train_test_split(
         X, y,
         test_size=0.25,
@@ -214,7 +211,12 @@ if __name__ == "__main__":
     accuracy_train = perceptron.evaluar(X_train, y_train)
     accuracy_test = perceptron.evaluar(X_test, y_test)
 
+    print(accuracy_train, accuracy_test)
+
     generar_reporte_clasificacion(perceptron, X_test, y_test, int_to_label)
+
+    print("\n" + "-" * 80)
+    print("Guardando modelo entrenado...")
 
     modelo_data = {
         'perceptron': perceptron,
@@ -225,5 +227,7 @@ if __name__ == "__main__":
         'n_components': 150
     }
 
-    with open('models/trained_model.pkl', 'wb') as f:
+    with open('./models/modelo_entrenado.pkl', 'wb') as f:
         pickle.dump(modelo_data, f)
+
+    print("Modelo guardado en './models/modelo_entrenado.pkl'")

@@ -32,7 +32,7 @@ def predecir_imagen(ruta_imagen):
     print(f"Procesando imagen: {ruta_imagen}")
 
     if not os.path.exists(ruta_imagen):
-        print(f"Error: La imagen '{ruta_imagen}' no existe")
+        print(f" Error: La imagen '{ruta_imagen}' no existe")
         return None, None
 
     try:
@@ -66,7 +66,7 @@ def predecir_imagen(ruta_imagen):
         return letra_predicha, confianza_valor
 
     except Exception as e:
-        print(f"Error procesando imagen: {e}")
+        print(f" Error procesando imagen: {e}")
         import traceback
         traceback.print_exc()
         return None, None
@@ -84,8 +84,8 @@ if __name__ == "__main__":
 
     if letra:
         print("\n" + "=" * 80)
-        print(f"Predicción: {letra}")
+        print(f" Predicción: {letra}")
         print(f"   Confianza: {confianza * 100:.2f}%")
         print("=" * 80)
     else:
-        print("No se pudo realizar la predicción")
+        print(" No se pudo realizar la predicción")
